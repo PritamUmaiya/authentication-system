@@ -48,8 +48,8 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/signup", methods=["GET", "POST"])
-def signup():
+@app.route("/logout")
+def logout():
     """Logout User"""
     session.clear()
     return redirect("/login")
