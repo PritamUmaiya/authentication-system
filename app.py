@@ -28,7 +28,12 @@ def after_request(response):
 @login_required
 def index():
     """Index Page"""
-    return render_template("index.html", name="Pritam")
+    users = db.exeucte("SELECT * FROM users WHERE id = ?", session['user_id'])
+
+    if len(users) == 0:
+        return redirect("/logout")
+
+    return render_template("index.html", user=users[0])
 
 
 @app.route("/signup", methods=["GET", "POST"])

@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/styles.css">
-    <title>Account</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block container %}
+
     <h1>Welcome, {{ name }}</h1>
     <p><a href="/delete-account" title="Delete Account">Delete Account</a></p>
     <p><a href="/logout" title="Logout">Logout</a></p>
-</body>
-</html>
+
+{% endblock %}
