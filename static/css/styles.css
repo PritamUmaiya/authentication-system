@@ -20,3 +20,45 @@ body {
 }
 
 
+.input-group {
+    margin-bottom: 20px;
+}
+
+.form-floating {
+    position: relative;
+    height: 50px;
+    line-height: 50px;
+}
+
+.form-floating input::placeholder {
+    color: transparent;
+}
+
+.form-control {
+    position: absolute;
+    width: 100%;
+    outline: none;
+    padding: 0 30px;
+    line-height: 50px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: transparent;
+    transition: 0.1s ease;
+    z-index: 2;
+}
+
+.form-label {
+    position: absolute;
+    background-color: #fff;
+    padding: 0 25px;
+    transition: 0.2s ease;
+}
+
+.form-floating input:not(:placeholder-shown) + .form-label,
+.form-floating input:focus + .form-label {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px;
+    transform: translate(5px, -16px) scale(0.88);
+    z-index: 2;
+}
