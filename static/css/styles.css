@@ -75,9 +75,9 @@ h2 {
     z-index: 2;
 }
 
-.invalid-feedback {
-    color: #ef2247;
+.form-feedback {
     visibility: hidden;
+    font-size: small;
 }
 .is-invalid {
     border-color: #ef2247;
@@ -85,9 +85,14 @@ h2 {
 .is-valid {
     border-color: #01af55;
 }
-.valid-feedback {
-    color: #01af55;
-    visibility: hidden;
+
+.is-valid + .form-feedback {
+    color:#01af55;
+    visibility: visible;
+}
+.is-invalid + .form-feedback {
+    color: #ef2247;
+    visibility: visible;
 }
 
 .btn {

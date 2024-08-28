@@ -9,20 +9,19 @@
     <form action="/login" method="post">
 
         <div class="panel">
-            <div class="form-floating">
-                <input type="email" name="email" class="form-control" id="email" placeholder="Email" autocomplete="off" autofocus>
+            <div class="form-floating is-invalid" id="emailPanel">
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email" autocomplete="off">
                 <label for="email" class="form-label">Email</label>
             </div>
-            <div class="invalid-feedback">Please enter your email!</div>
+            <div class="form-feedback">Please enter your email!</div>
         </div>
 
         <div class="panel">
-           
-            <div class="form-floating">
+            <div class="form-floating" id="passwordPanel">
                 <input type="password" name="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">Passwor</label>
             </div>
-            <div class="valid-feedback">Strong Password!</div>
+            <div class="form-feedback">Please enter your password!</div>
         </div>
 
         <div class="text-center">
