@@ -86,11 +86,11 @@ h2 {
     border-color: #01af55;
 }
 
-.is-valid + .form-feedback {
+.is-valid ~ .form-feedback {
     color:#01af55;
     visibility: visible;
 }
-.is-invalid + .form-feedback {
+.is-invalid ~ .form-feedback {
     color: #ef2247;
     visibility: visible;
 }
