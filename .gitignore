@@ -2,3 +2,4 @@ __pycache__
 .idx
 flask_session
 venv
+replit.nix
