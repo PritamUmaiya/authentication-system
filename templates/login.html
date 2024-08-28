@@ -8,22 +8,25 @@
     <h2 class="text-center">Login</h2>
     <form action="/login" method="post">
 
-        <div class="input-group has-validation">
-            <div class="form-floating is-invalid">
+        <div class="panel">
+            <div class="form-floating">
                 <input type="email" name="email" class="form-control is-invalid" id="email" placeholder="Email" autocomplete="off" autofocus>
                 <label for="email" class="form-label">Email</label>
             </div>
             <div class="invalid-feedback">Please enter your email!</div>
         </div>
 
-        <div class="input-group has-validation">
-            <div class="form-floating is-invalid">
-                <input type="password" name="password" class="form-control is-invalid" id="password" placeholder="Password" autocomplete="off">
+        <div class="panel">
+            <div class="form-floating">
+                <input type="password" name="password" class="form-control is-valid" id="password" placeholder="Password" autocomplete="off">
                 <label for="password" class="form-label">Password</label>
             </div>
-            <div class="invalid-feedback">Please enter your password!</div>
+            <div class="valid-feedback">Please enter your password!</div>
         </div>
 
+        <div class="panel">
+            <button type="submit"></button>
+        </div>
     </form>
 {% endblock %}
 
