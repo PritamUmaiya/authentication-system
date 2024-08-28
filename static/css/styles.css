@@ -97,6 +97,17 @@ h2 {
     color: #01af55;
 }
 
+.btn {
+    border: 1px solid currentColor;
+    border-radius: 7px;
+    outline: none;
+    padding: 5px 7px;
+}
+
+.btn-primary {
+    background-color: #333;
+}
+
 @media (min-width: 768px) {
     .container {
         border-radius: 10px;
