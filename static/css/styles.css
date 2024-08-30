@@ -16,13 +16,17 @@
 }
 
 /* Utilities */
-h2 {
+h1 {
     font-weight: 400;
-    font-size: 1.7rem;
+    font-size: 1.8rem;
 }
 
 .text-center {
     text-align: center;
+}
+
+.panel {
+    margin: 15px 0;
 }
 
 body {
@@ -49,11 +53,15 @@ body {
 
 /* Form floating input */
 .input-group {
-    position: relative;
-    margin: 20px 0;
+    width: 100%;
+    max-width: 465px;
+    display: block;
+    margin: 15px auto;
 }
 
-.input-group input {
+.floating-input {position: relative;}
+
+.floating-input input {
     width: 100%;
     font-size: 1rem;
     padding: 20px 10px 5px 10px;
@@ -63,15 +71,11 @@ body {
     border-radius: 5px;
 }
 
-.input-group input:focus {
-    border-color: var(--border-hover-color);
-}
-
-.input-group input::placeholder {
+.floating-input input::placeholder {
     color: transparent;
 }
 
-.input-group label {
+.floating-input label {
     position: absolute;
     top: 50%;
     left: 10px;
@@ -82,17 +86,37 @@ body {
     transition: .2s;
 }
 
-.input-group input:focus~label {
+.floating-input input:focus~label {
     top: 25%;
     left: 5px;
     font-size: 0.8rem;
-    background: #fff;
 }
 
 .input-feedback {
     display: none;
     font-size: small;
 }
+
+.is-invalid input {border-color: var(--danger);}
+.is-invalid .input-feedback {display: block;color: var(--danger);}
+
+.is-valid input {border-color: var(--success);}
+.is-valid .input-feedback {display: block;color: var(--success);}
+
+/* Button */
+.btn {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: transparent;
+    border: 1px solid transparent;
+    outline: none;
+    border-radius: 5px;
+}
+
+.btn-primary {background-color: var(--primary);color: #fff;}
+.btn-primary:hover, .btn-primary:active {background-color: var(--primary-hover);}
 
 
 @media (min-width: 768px) {

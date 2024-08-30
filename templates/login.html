@@ -5,23 +5,33 @@
 {% endblock %}
 
 {% block container %}
-    <h2 class="text-center">Login</h2>
+    <div class="panel text-center">
+        <h1>Login</h1>
+    </div>
 
     <form action="/login" method="post">
 
         <div class="input-group">
-            <input type="email" name="email" placeholder="Email" id="email" autocomplete="off" autofocus>
-            <label for="email">Email</label>
-            <small class="input-feedback" for="email"></small>
+            <div class="floating-input">
+                <input type="email" name="email" placeholder="Email" id="email" autocomplete="off" autofocus>
+                <label for="email">Email</label>
+            </div>
+            <small class="input-feedback" for="email">Please enter your email!</small>
         </div>
 
         <div class="input-group">
-            <input type="password" name="password" placeholder="Password" id="password" autocomplete="off">
-            <label for="password">Password</label>
-            <small class="input-feedback" for="password"></small>
+            <div class="floating-input">
+                <input type="password" name="password" placeholder="Password" id="password" autocomplete="off">
+                <label for="password">Password</label>
+            </div>
+            <small class="input-feedback" for="password">Please enter your password!</small>
         </div>
 
+        <div class="panel text-center">
+            <button type="submit" class="btn btn-primary">Login</button>
 
+            <p>Don't have an account? <a href="/signup" title="Signup">signup</a></p>
+        </div>
     </form>
 {% endblock %}
 
