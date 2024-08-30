@@ -9,22 +9,22 @@
         <h1>Login</h1>
     </div>
 
-    <form action="/login" method="post">
+    <form action="/login" method="post" novalidate>
 
-        <div class="input-group">
+        <div class="input-group has-validation" id="emailPanel">
             <div class="floating-input">
                 <input type="email" name="email" placeholder="Email" id="email" autocomplete="off" autofocus>
                 <label for="email">Email</label>
             </div>
-            <small class="input-feedback" for="email">Please enter your email!</small>
+            <div class="input-feedback"></div>
         </div>
 
-        <div class="input-group">
+        <div class="input-group has-validation" id="passwordPanel">
             <div class="floating-input">
                 <input type="password" name="password" placeholder="Password" id="password" autocomplete="off">
                 <label for="password">Password</label>
             </div>
-            <small class="input-feedback" for="password">Please enter your password!</small>
+            <div class="input-feedback"></div>
         </div>
 
         <div class="panel text-center">

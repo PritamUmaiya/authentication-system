@@ -6,8 +6,8 @@ const form = document.querySelector('form');
 
 // Clear error messages every time user start typing
 document.querySelectorAll('input').forEach(input => {
-    input.addEventListener('click', () => {
-        document.querySelectorAll('.form-floating').forEach(element => {
+    input.addEventListener('input', () => {
+        document.querySelectorAll('.has-validation').forEach(element => {
             element.classList.remove('is-invalid');
         });
     });
@@ -20,19 +20,19 @@ function validateForm() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email.value === "") {
         emailPanel.classList.add('is-invalid');
-        document.querySelector('#emailPanel ~ .form-feedback').innerHTML = 'Please enter your email!';
+        document.querySelector('#emailPanel .input-feedback').innerHTML = 'Please enter your email!';
         isValid = false;
     }
     else if (emailRegex.test(email.value) == false) {
         emailPanel.classList.add('is-invalid');
-        document.querySelector('#emailPanel ~ .form-feedback').innerHTML = 'Please enter a valid email!';
+        document.querySelector('#emailPanel .input-feedback').innerHTML = 'Please enter a valid email!';
         isValid = false;
     }
 
     // Validate Password
     if (password.value === "") {
         passwordPanel.classList.add('is-invalid');
-        document.querySelector('#passwordPanel ~ .form-feedback').innerHTML = 'Please enter your password!';
+        document.querySelector('#passwordPanel .input-feedback').innerHTML = 'Please enter your password!';
         isValid = false;
     }
     

@@ -86,7 +86,8 @@ body {
     transition: .2s;
 }
 
-.floating-input input:focus~label {
+.floating-input input:not(:placeholder-shown) + label,
+.floating-input input:focus + label {
     top: 25%;
     left: 5px;
     font-size: 0.8rem;
@@ -97,11 +98,12 @@ body {
     font-size: small;
 }
 
+
 .is-invalid input {border-color: var(--danger);}
-.is-invalid .input-feedback {display: block;color: var(--danger);}
+.is-invalid .input-feedback {display:block; color: var(--danger);}
 
 .is-valid input {border-color: var(--success);}
-.is-valid .input-feedback {display: block;color: var(--success);}
+.is-valid .input-feedback {display:block; color: var(--success);}
 
 /* Button */
 .btn {
