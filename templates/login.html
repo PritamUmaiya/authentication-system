@@ -6,28 +6,22 @@
 
 {% block container %}
     <h2 class="text-center">Login</h2>
+
     <form action="/login" method="post">
 
-        <div class="panel">
-            <div class="form-floating" id="emailPanel">
-                <input type="text" name="email" class="form-control" id="email" placeholder="Email" autocomplete="off">
-                <label for="email" class="form-label">Email</label>
-            </div>
-            <div class="form-feedback">Please enter your email!</div>
+        <div class="input-group">
+            <input type="email" name="email" placeholder="Email" id="email" autocomplete="off" autofocus>
+            <label for="email">Email</label>
+            <small class="input-feedback" for="email"></small>
         </div>
 
-        <div class="panel">
-            <div class="form-floating" id="passwordPanel">
-                <input type="password" name="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
-                <label for="password" class="form-label">Password</label>
-            </div>
-            <div class="form-feedback">Please enter your password!</div>
+        <div class="input-group">
+            <input type="password" name="password" placeholder="Password" id="password" autocomplete="off">
+            <label for="password">Password</label>
+            <small class="input-feedback" for="password"></small>
         </div>
 
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </div>
-        <p class="text-center">Don't have an account? <a href="/signup" title="Signup">signup</a></p>
+
     </form>
 {% endblock %}
 
