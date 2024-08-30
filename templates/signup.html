@@ -5,9 +5,48 @@
 {% endblock %}
 
 {% block container %}
+    <section id="tab-container">
+        <div class="panel text-center">
+            <h1>Signup</h1>
+        </div>
+        <!--Tab 1: Name And Email-->
+        <section id="tab-1">
 
+            <div class="input-group has-validation" id="namePanel">
+                <div class="floating-input">
+                    <input type="text" name="name" placeholder="Name" id="name" autocomplete="off" autofocus>
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-feedback"></div>
+            </div>
+
+            <div class="input-group has-validation" id="emailPanel">
+                <div class="floating-input">
+                    <input type="email" name="email" placeholder="Email" id="email" autocomplete="off">
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-feedback"></div>
+            </div>
+
+            <div class="panel text-center">
+                <button type="button" class="btn btn-primary">Next</button>
+    
+                <p>Already have an account? <a href="/login" title="Login">login</a></p>
+            </div>
+        </section>
+        <!--Tab 2: Password-->
+        <section id="tab-2">
+
+        </section>
+        <!--Tab 3: OTP Validation-->
+        <section id="tab-3">
+
+        </section>
+
+    </section>
 {% endblock %}
 
 {% block js %}
+    <script src="/static/js/tabs.js"></script>
     <script src="/static/js/signup.js"></script>
 {% endblock %}
