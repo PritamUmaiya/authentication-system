@@ -144,6 +144,11 @@ body {
     color: var(--primary);
 }
 
+.btn-outline-primary:hover, .btn-outline-primary:active {
+    border-color: var(--primary-hover);
+    color: var(--primary-hover);
+}
+
 @media (min-width: 768px) {
     .container {
         border-radius: 10px;

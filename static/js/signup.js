@@ -47,7 +47,29 @@ function goToTab(tabName) {
         }
     }
     else if (tabName == 'tab-3') {
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirm_password').value;
+        let isValid = true;
 
+        if (password === '') {
+            document.getElementById('passwordPanel').classList.add('is-invalid');
+            document.getElementById('passwordPanel').querySelector('.input-feedback').innerHTML = 'Please enter a password!';
+            isValid = false;
+        }
+        if (confirmPassword === '') {
+            document.getElementById('confirmPasswordPanel').classList.add('is-invalid');
+            document.getElementById('confirmPasswordPanel').querySelector('.input-feedback').innerHTML = 'Please re-enter your password!';
+            isValid = false;
+        }
+        else if (password !== confirmPassword) {
+            document.getElementById('confirmPasswordPanel').classList.add('is-invalid');
+            document.getElementById('confirmPasswordPanel').querySelector('.input-feedback').innerHTML = 'Passwords do not match!';
+            isValid = false;
+        }
+
+        if (!isValid) {
+            return;
+        }
     }
 
     openTab(tabName);
