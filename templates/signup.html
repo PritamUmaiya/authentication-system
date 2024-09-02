@@ -5,48 +5,63 @@
 {% endblock %}
 
 {% block container %}
-    <section id="tab-container">
-        <div class="panel text-center">
-            <h1>Signup</h1>
+    <div class="panel text-center">
+        <h1>Signup</h1>
+    </div>
+    <!--Tab 1: Name And Email-->
+    <section id="tab-1" class="tab-content">
+
+        <div class="input-group has-validation" id="namePanel">
+            <div class="floating-input">
+                <input type="text" name="name" placeholder="Name" id="name" autocomplete="off" autofocus>
+                <label for="name">Name</label>
+            </div>
+            <div class="input-feedback"></div>
         </div>
-        <!--Tab 1: Name And Email-->
-        <section id="tab-1">
 
-            <div class="input-group has-validation" id="namePanel">
-                <div class="floating-input">
-                    <input type="text" name="name" placeholder="Name" id="name" autocomplete="off" autofocus>
-                    <label for="name">Name</label>
-                </div>
-                <div class="input-feedback"></div>
+        <div class="input-group has-validation" id="emailPanel">
+            <div class="floating-input">
+                <input type="email" name="email" placeholder="Email" id="email" autocomplete="off">
+                <label for="email">Email</label>
             </div>
+            <div class="input-feedback"></div>
+        </div>
 
-            <div class="input-group has-validation" id="emailPanel">
-                <div class="floating-input">
-                    <input type="email" name="email" placeholder="Email" id="email" autocomplete="off">
-                    <label for="email">Email</label>
-                </div>
-                <div class="input-feedback"></div>
+        <div class="panel text-center">
+            <button type="button" class="btn btn-primary" onclick="goToTab('tab-2')">Next</button>
+
+            <p>Already have an account? <a href="/login" title="Login">login</a></p>
+        </div>
+    </section>
+    <!--Tab 2: Password-->
+    <section id="tab-2" class="tab-content d-none">
+        <div class="input-group has-validation" id="passwordPanel">
+            <div class="floating-input">
+                <input type="password" name="password" placeholder="Password" id="password" autocomplete="off">
+                <label for="password">Password</label>
             </div>
+            <div class="input-feedback"></div>
+        </div>
 
-            <div class="panel text-center">
-                <button type="button" class="btn btn-primary">Next</button>
-    
-                <p>Already have an account? <a href="/login" title="Login">login</a></p>
+        <div class="input-group has-validation" id="passwordPanel">
+            <div class="floating-input">
+                <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirm_password" autocomplete="off">
+                <label for="confirm_password">Re-enter Password</label>
             </div>
-        </section>
-        <!--Tab 2: Password-->
-        <section id="tab-2">
+            <div class="input-feedback"></div>
+        </div>
 
-        </section>
-        <!--Tab 3: OTP Validation-->
-        <section id="tab-3">
-
-        </section>
-
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary" onclick="goToTab('tab-1')">Prev</button>
+            <button type="button" class="btn btn-primary" onclick="goToTab('tab-3')">Next</button>
+        </div>
+    </section>
+    <!--Tab 3: OTP Validation-->
+    <section id="tab-3" class="tab-content d-none">
+        <h1>Tab 3</h1>
     </section>
 {% endblock %}
 
 {% block js %}
-    <script src="/static/js/tabs.js"></script>
     <script src="/static/js/signup.js"></script>
 {% endblock %}
