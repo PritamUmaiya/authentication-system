@@ -1,3 +1,5 @@
+let otp_sent = false;
+
 // Clear error messages every time user start typing
 document.querySelectorAll('input').forEach(input => {
     input.addEventListener('input', () => {
@@ -6,6 +8,52 @@ document.querySelectorAll('input').forEach(input => {
         });
     });
 });
+
+// Function to send otp 
+function send_opt(email) {
+    // Send otp to email
+    fetch('/send_otp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: email})
+    })
+    .then(response => response.json)
+    .then(data => {
+        if (data.success) {
+            otp_sent = true;
+        }
+        else {
+            alert('Error sending OTP. Please try again later.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function email_taken(email) {
+    // Check if email has already been taken
+    fetch('/email_exists', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({email: email})
+    })
+    .then(response => response.json)
+    .then(data => {
+        if (data.email_exists) {
+            return true;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+    return false;
+}
 
 function openTab(tabName) {
     // Hide all tabs
@@ -41,6 +89,15 @@ function goToTab(tabName) {
             document.querySelector('#emailPanel .input-feedback').innerHTML = 'Please enter a valid email!';
             isValid = false;
         }
+        // Check if email has already been taken
+        if(email_taken(email)) {
+            document.querySelector('#emailPanel').classList.add('is-invalid');
+            document.querySelector('#emailPanel .input-feedback').innerHTML = 'This email has already been taken!';
+            isValid = false;
+        }
+        else {
+            send_opt(email);
+        }
 
         if (!isValid) {
             return;
@@ -67,6 +124,11 @@ function goToTab(tabName) {
             isValid = false;
         }
 
+        if (!otp_sent) {
+            alert('Error sending OTP. Please try again later.');
+            return;
+        }
+
         if (!isValid) {
             return;
         }
@@ -74,5 +136,3 @@ function goToTab(tabName) {
 
     openTab(tabName);
 }
-
-

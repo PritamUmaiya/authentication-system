@@ -1,5 +1,5 @@
 from cs50 import SQL
-from flask import Flask, redirect, render_template, session
+from flask import Flask, redirect, render_template, session, jsonify, request
 from flask_session import Session
 
 from helpers import apology, login_required
@@ -46,6 +46,17 @@ def signup():
 def login():
     """Login user"""
     return render_template("login.html")
+
+
+@app.route("/email_exists", methods=["POST"])
+def email_exists():
+    """Check if email exists"""
+    email = request.form.get("email")
+
+    if db.execute("SELECT * FROM users WHERE email = ?", email):
+        return jsonify({"email_exists": True})
+
+    return jsonify({"email_exists": False})
 
 
 @app.route("/logout")
