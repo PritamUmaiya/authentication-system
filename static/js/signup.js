@@ -25,6 +25,7 @@ function send_opt(email) {
             otp_sent = true;
         }
         else {
+            console.log(data.error)
             alert('Error sending OTP. Please try again later.');
         }
     })

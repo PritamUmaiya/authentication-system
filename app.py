@@ -46,7 +46,7 @@ def after_request(response):
 @login_required
 def index():
     """Index Page"""
-    users = db.exeucte("SELECT * FROM users WHERE id = ?", session['user_id'])
+    users = db.exeucute("SELECT * FROM users WHERE id = ?", session['user_id'])
 
     if len(users) == 0:
         return redirect("/logout")
@@ -80,20 +80,22 @@ def email_exists():
 @app.route("/send_otp", methods=["POST"])
 def send_otp():
     """Send OTP to email"""
-    try:
-        email = request.form.get("email")
+    email = request.form.get("email")
 
-        global otp
-        otp = random.randint(100000, 999999)
+    global otp
+    otp = random.randint(100000, 999999)
 
+    if app.config['MAIL_USERNAME'] and email:
         msg = Message('OTP Verification', sender=app.config['MAIL_USERNAME'], recipients=[email])
         msg.body = f'Your OTP is: {otp}'
-        mail.send(msg)
+        try:
+            mail.send(msg)
+            return jsonify({"success": True})
+        except Exception as e:
+            return jsonify({"success": False, "error": str(e)})
+    else:
+        return jsonify({"success": False, "error": "Invalid email or sender"})
 
-        return jsonify({"success": True})
-    
-    except:
-        return jsonify({"success": False})
 
 
 @app.route("/verify_otp", methods=["POST"])
@@ -102,7 +104,7 @@ def verify_otp():
     try:
         entered_otp = request.form.get("otp")
 
-        if opt and int(entered_otp) == otp:
+        if otp and int(entered_otp) == otp:
             return jsonify({"success": True})
 
         return jsonify({"success": False})
