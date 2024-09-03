@@ -19,7 +19,7 @@ function send_opt(email) {
         },
         body: JSON.stringify({email: email})
     })
-    .then(response => response.json)
+    .then(response => response.json())
     .then(data => {
         if (data.success) {
             otp_sent = true;
@@ -43,7 +43,7 @@ function email_taken(email) {
         },
         body: JSON.stringify({email: email})
     })
-    .then(response => response.json)
+    .then(response => response.json())
     .then(data => {
         if (data.email_exists) {
             return true;
@@ -91,7 +91,7 @@ function goToTab(tabName) {
             isValid = false;
         }
         // Check if email has already been taken
-        if(email_taken(email)) {
+        if(email_taken(document.getElementById('email').value)) {
             document.querySelector('#emailPanel').classList.add('is-invalid');
             document.querySelector('#emailPanel .input-feedback').innerHTML = 'This email has already been taken!';
             isValid = false;
@@ -127,7 +127,7 @@ function goToTab(tabName) {
         }
 
         // Send Opt
-        send_opt(email);
+        send_opt(document.getElementById('email').value);
 
         if (!otp_sent) {
             alert('Error sending OTP. Please try again later.');

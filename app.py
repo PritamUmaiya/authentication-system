@@ -69,7 +69,8 @@ def login():
 @app.route("/email_exists", methods=["POST"])
 def email_exists():
     """Check if email exists"""
-    email = request.form.get("email")
+    data = request.get_json()
+    email = data.get("email")
 
     if db.execute("SELECT * FROM users WHERE email = ?", email):
         return jsonify({"email_exists": True})
@@ -80,7 +81,9 @@ def email_exists():
 @app.route("/send_otp", methods=["POST"])
 def send_otp():
     """Send OTP to email"""
-    email = request.form.get("email")
+    data = request.get_json()
+    email = data.get("email")
+    print(email)
 
     global otp
     otp = random.randint(100000, 999999)
