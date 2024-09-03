@@ -95,9 +95,6 @@ function goToTab(tabName) {
             document.querySelector('#emailPanel .input-feedback').innerHTML = 'This email has already been taken!';
             isValid = false;
         }
-        else {
-            send_opt(email);
-        }
 
         if (!isValid) {
             return;
@@ -124,12 +121,15 @@ function goToTab(tabName) {
             isValid = false;
         }
 
-        if (!otp_sent) {
-            alert('Error sending OTP. Please try again later.');
+        if (!isValid) {
             return;
         }
 
-        if (!isValid) {
+        // Send Opt
+        send_opt(email);
+
+        if (!otp_sent) {
+            alert('Error sending OTP. Please try again later.');
             return;
         }
     }
