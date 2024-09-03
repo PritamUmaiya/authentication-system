@@ -1,4 +1,9 @@
 let otp_sent = false;
+let full_name = document.getElementById('name');
+let email = document.getElementById('email');
+let password = document.getElementById('password');
+let confirmPassword = document.getElementById('confirm_password');
+let otp = document.getElementById('otp');
 
 // Clear error messages every time user start typing
 document.querySelectorAll('input').forEach(input => {
@@ -10,14 +15,14 @@ document.querySelectorAll('input').forEach(input => {
 });
 
 // Function to send otp 
-function send_opt(email) {
+async function send_opt() {
     // Send otp to email
-    fetch('/send_otp', {
+    await fetch('/send_otp', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email: email})
+        body: JSON.stringify({email: email.value})
     })
     .then(response => response.json())
     .then(data => {
@@ -68,30 +73,28 @@ function openTab(tabName) {
     tab.classList.remove('d-none');
 }
 
-function goToTab(tabName) {
+async function goToTab(tabName) {
     if (tabName == 'tab-2') {
-        var name = document.getElementById('name').value;
-        var email = document.getElementById('email').value;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let isValid = true;
         
-        if (name === '') {
+        if (full_name.value === '') {
             document.getElementById('namePanel').classList.add('is-invalid');
             document.getElementById('namePanel').querySelector('.input-feedback').innerHTML = 'Please enter your name!';
             isValid = false;
         }
-        if (email === '') {
+        if (email.value === '') {
             document.getElementById('emailPanel').classList.add('is-invalid');
             document.getElementById('emailPanel').querySelector('.input-feedback').innerHTML = 'Please enter your email!';
             isValid = false;
         }
-        else if (emailRegex.test(email) == false) {
+        else if (emailRegex.test(email.value) == false) {
             document.querySelector('#emailPanel').classList.add('is-invalid');
             document.querySelector('#emailPanel .input-feedback').innerHTML = 'Please enter a valid email!';
             isValid = false;
         }
         // Check if email has already been taken
-        if(email_taken(document.getElementById('email').value)) {
+        if(email_taken(email.value)) {
             document.querySelector('#emailPanel').classList.add('is-invalid');
             document.querySelector('#emailPanel .input-feedback').innerHTML = 'This email has already been taken!';
             isValid = false;
@@ -102,21 +105,19 @@ function goToTab(tabName) {
         }
     }
     else if (tabName == 'tab-3') {
-        var password = document.getElementById('password').value;
-        var confirmPassword = document.getElementById('confirm_password').value;
         let isValid = true;
 
-        if (password === '') {
+        if (password.value === '') {
             document.getElementById('passwordPanel').classList.add('is-invalid');
             document.getElementById('passwordPanel').querySelector('.input-feedback').innerHTML = 'Please enter a password!';
             isValid = false;
         }
-        if (confirmPassword === '') {
+        if (confirmPassword.value === '') {
             document.getElementById('confirmPasswordPanel').classList.add('is-invalid');
             document.getElementById('confirmPasswordPanel').querySelector('.input-feedback').innerHTML = 'Please re-enter your password!';
             isValid = false;
         }
-        else if (password !== confirmPassword) {
+        else if (password.value !== confirmPassword.value) {
             document.getElementById('confirmPasswordPanel').classList.add('is-invalid');
             document.getElementById('confirmPasswordPanel').querySelector('.input-feedback').innerHTML = 'Passwords do not match!';
             isValid = false;
@@ -127,7 +128,7 @@ function goToTab(tabName) {
         }
 
         // Send Opt
-        send_opt(document.getElementById('email').value);
+        await send_opt(document.getElementById('email').value);
 
         if (!otp_sent) {
             alert('Error sending OTP. Please try again later.');
@@ -136,4 +137,37 @@ function goToTab(tabName) {
     }
 
     openTab(tabName);
+}
+
+function otp_matched() {
+    fetch('/verify_otp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({otp: otp.value})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            return true;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    })
+    return false;
+}
+
+function complete_signup() {
+    // Check if otp is correct
+    if (!otp_matched()) {
+        document.getElementById('otpPanel').classList.add('is-invalid');
+        document.getElementById('otpPanel').querySelector('.input-feedback').innerHTML = 'Invalid OTP!';
+        return;
+    }
+    else {
+        // Complete signup
+        
+    }
 }

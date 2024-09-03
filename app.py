@@ -10,7 +10,7 @@ from helpers import apology, login_required
 
 # Configure application
 app = Flask(__name__)
-app.secret_key = 'X3H38-RQ09T-65BV0-TSSZU-QVB8N'
+app.secret_key = os.getenv('SECRET_KEY')
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
@@ -57,6 +57,7 @@ def index():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     """Register user"""
+    
     return render_template("signup.html")
 
 
@@ -83,7 +84,6 @@ def send_otp():
     """Send OTP to email"""
     data = request.get_json()
     email = data.get("email")
-    print(email)
 
     global otp
     otp = random.randint(100000, 999999)
