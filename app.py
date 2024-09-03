@@ -57,13 +57,55 @@ def index():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     """Register user"""
-    
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
+
+        if not name or not email or not password or not confirm_password:
+            return apology("All fields are required", 400)
+
+        if password != confirm_password:
+            return apology("Passwords do not match", 400)
+
+        if db.execute("SELECT * FROM users WHERE email = ?", email):
+            return apology("Email already exists", 400)
+        
+        db.execute("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", name, email, password)
+
+        session.clear()
+
+        users = db.execute("SELECT * FROM users WHERE email = ?", email)
+
+        session["user_id"] = users[0]["id"]
+
+        return redirect("/")
+
     return render_template("signup.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Login user"""
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        if not email or not password:
+            return apology("All fields are required", 400)
+
+        users = db.execute("SELECT * FROM users WHERE email = ?", email)
+
+        if len(users) != 1 or not users[0]["password"] == password:
+            return apology("Invalid email or password", 403)
+
+        session.clear()
+
+        session["user_id"] = users[0]["id"]
+
+        return redirect("/")
+
     return render_template("login.html")
 
 
@@ -104,16 +146,15 @@ def send_otp():
 @app.route("/verify_otp", methods=["POST"])
 def verify_otp():
     """Verify OTP"""
-    try:
-        entered_otp = request.form.get("otp")
+    data  = request.get_json()
+    entered_otp = data.get("otp")
 
-        if otp and int(entered_otp) == otp:
-            return jsonify({"success": True})
+    print(otp, entered_otp)
 
-        return jsonify({"success": False})
+    if otp and int(entered_otp) == otp:
+        return jsonify({"success": True})
 
-    except:
-        return jsonify({"success": False})
+    return jsonify({"success": False})
 
 
 @app.route("/logout")

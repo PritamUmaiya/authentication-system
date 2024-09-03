@@ -139,35 +139,63 @@ async function goToTab(tabName) {
     openTab(tabName);
 }
 
-function otp_matched() {
-    fetch('/verify_otp', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({otp: otp.value})
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            return true;
-        }
-    })
-    .catch(error => {
+async function otp_matched() {
+    try {
+        const response = await fetch('/verify_otp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ otp: otp.value })
+        });
+
+        const data = await response.json();
+        return data.success === true; // Return true or false based on the response
+    } catch (error) {
         console.error('Error:', error);
-    })
-    return false;
+        return false;
+    }
 }
 
-function complete_signup() {
+async function complete_signup() {
     // Check if otp is correct
-    if (!otp_matched()) {
+    if (!(await otp_matched())) {
         document.getElementById('otpPanel').classList.add('is-invalid');
         document.getElementById('otpPanel').querySelector('.input-feedback').innerHTML = 'Invalid OTP!';
         return;
     }
-    else {
-        // Complete signup
-        
-    }
+
+    // Create a new form element
+    let form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/signup';
+
+    // Create hidden input fields to store form data
+    let fullNameInput = document.createElement('input');
+    fullNameInput.type = 'hidden';
+    fullNameInput.name = 'name';
+    fullNameInput.value = full_name.value;
+    form.appendChild(fullNameInput);
+
+    let emailInput = document.createElement('input');
+    emailInput.type = 'hidden';
+    emailInput.name = 'email';
+    emailInput.value = email.value;
+    form.appendChild(emailInput);
+
+    let passwordInput = document.createElement('input');
+    passwordInput.type = 'hidden';
+    passwordInput.name = 'password';
+    passwordInput.value = password.value;
+    form.appendChild(passwordInput);
+
+    let confirmPasswordInput = document.createElement('input');
+    confirmPasswordInput.type = 'hidden';
+    confirmPasswordInput.name = 'confirm_password';
+    confirmPasswordInput.value = confirmPassword.value;
+    form.appendChild(confirmPasswordInput);
+
+    // Append the form to the body and submit it
+    document.body.appendChild(form);
+    form.submit();
 }
