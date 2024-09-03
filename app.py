@@ -1,7 +1,10 @@
 from cs50 import SQL
+from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, request, session, jsonify
 from flask_mail import Mail, Message
 from flask_session import Session
+import os
+import random
 
 from helpers import apology, login_required
 
@@ -15,11 +18,13 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Flask-Mail configuration
+load_dotenv()
+
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'your_email_username'
-app.config['MAIL_PASSWORD'] = 'your_email_password'
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 
 mail = Mail(app)
 
@@ -101,7 +106,7 @@ def verify_otp():
             return jsonify({"success": True})
 
         return jsonify({"success": False})
-        
+
     except:
         return jsonify({"success": False})
 

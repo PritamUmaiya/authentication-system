@@ -1,4 +1,5 @@
 __pycache__
-.idx
 flask_session
+.env
+.idx
 venv
