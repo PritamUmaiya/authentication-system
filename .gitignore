@@ -1,6 +1,5 @@
 __pycache__
 flask_session
-.env
 .idx
 .vscode
 venv
