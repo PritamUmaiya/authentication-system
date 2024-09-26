@@ -46,7 +46,7 @@ def after_request(response):
 @login_required
 def index():
     """Index Page"""
-    users = db.exeucute("SELECT * FROM users WHERE id = ?", session['user_id'])
+    users = db.execute("SELECT * FROM users WHERE id = ?", session['user_id'])
 
     if len(users) == 0:
         return redirect("/logout")
@@ -161,6 +161,14 @@ def verify_otp():
 def logout():
     """Logout User"""
     session.clear()
+    return redirect("/login")
+
+
+@app.route("/delete_account")
+@login_required
+def delete_account():
+    """Delete User Account"""
+    db.execute("DELETE FROM users WHERE id = ?", session['user_id'])
     return redirect("/login")
 
 
